@@ -44,7 +44,7 @@ app_2.use(express.session({
 }));
 // set dummy session
 app_2.use(function(req, res, next) {
-  req.session.username = 'john';
+  req.session.username = 'jim';
   next();
 });
 app_2.use(app_2.router);
@@ -97,7 +97,7 @@ describe('primus-express-session', function() {
       // listen on client connection
       primus_2.on('connection', function(spark) {
         spark.getSession(function(err, session) {
-          session.username.should.equal('john');
+          session.username.should.equal('jim');
           done();
         });
       });
