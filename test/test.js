@@ -82,11 +82,11 @@ describe('primus-express-session', function() {
         });
       });
       // simulate a client connection
-      var client = new primus.Socket('http://localhost:6000/?cookie=connect.sess=' + cookieStr);
+      var client = new primus.Socket('http://localhost:6000/?cookie=connect.sess=' + encodeURIComponent(cookieStr));
     });
   });
 
-  it('should work with a session store', function(done) {
+  it('should work with a session store and return proper session', function(done) {
     // request page to get a cookie
     request(app_2).get('/').end(function(err, res) {
       // get cookie from headers
@@ -97,12 +97,17 @@ describe('primus-express-session', function() {
       // listen on client connection
       primus_2.on('connection', function(spark) {
         spark.getSession(function(err, session) {
+          // test session
           session.username.should.equal('jim');
-          done();
+          // test session methods
+          session.destroy(function(err) {
+            should.not.exist(err);
+            done();
+          });
         });
       });
       // simulate a client connection - important! different key
-      var client = new primus.Socket('http://localhost:7000/?cookie=connect.sid=' + cookieStr);
+      var client = new primus.Socket('http://localhost:7000/?cookie=connect.sid=' + encodeURIComponent(cookieStr));
     });
   });
   
