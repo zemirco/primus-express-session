@@ -4,16 +4,12 @@
 
 [![NPM](https://nodei.co/npm/primus-express-session.png)](https://nodei.co/npm/primus-express-session/)
 
-Share a user session between Express and Primus.
+Share a user session between Express and Primus. Take a look at the [example](https://github.com/zeMirco/primus-express-session/blob/master/example/app.js).
 
 ## Installation
 
 ```
 npm install primus-express-session
-```
-
-```js
-var expressSession = require('primus-express-session');
 ```
 
 ## How to use
