@@ -1,5 +1,5 @@
 
-http = require('http');
+var http = require('http');
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
