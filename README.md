@@ -1,10 +1,10 @@
 # primus-express-session
 
-[![Build Status](https://travis-ci.org/zeMirco/primus-express-session.png?branch=master)](https://travis-ci.org/zeMirco/primus-express-session) [![NPM version](https://badge.fury.io/js/primus-express-session.png)](http://badge.fury.io/js/primus-express-session)
+[![Build Status](https://travis-ci.org/zemirco/primus-express-session.png?branch=master)](https://travis-ci.org/zemirco/primus-express-session) [![NPM version](https://badge.fury.io/js/primus-express-session.png)](http://badge.fury.io/js/primus-express-session)
 
 [![NPM](https://nodei.co/npm/primus-express-session.png)](https://nodei.co/npm/primus-express-session/)
 
-Share a user session between Express and Primus. Take a look at the [example](https://github.com/zeMirco/primus-express-session/blob/master/example/app.js).
+Share a user session between Express and Primus. Take a look at the [example](https://github.com/zemirco/primus-express-session/blob/master/example/app.js).
 
 ## Installation
 
@@ -59,13 +59,13 @@ primus.use('session', primusExpressSession);
 
 // listen on incoming connection
 primus.on('connection', function(spark) {
-  
+
   // spark object now has a getSession() method
-  spark.getSession(function(err, session) {    
+  spark.getSession(function(err, session) {
     if (err) console.log(err);
     console.log(session.username);  // prints 'john'
   });
-  
+
 });
 
 // start the server
@@ -96,10 +96,4 @@ var primus = new Primus(server, {
 
 ## License
 
-Copyright (C) 2014 [Mirco Zeiss](mailto: mirco.zeiss@gmail.com)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+MIT
