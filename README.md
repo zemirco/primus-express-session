@@ -35,6 +35,10 @@ For more information take a look at the
 or the
 [tests](https://github.com/zemirco/primus-express-session/blob/express_4.x/test/test.js).
 
+Take a look at the
+[master branch](https://github.com/zemirco/primus-express-session/tree/master)
+for older versions.
+
 ## Test
 
 `grunt`
