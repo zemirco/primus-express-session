@@ -7,26 +7,34 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var Primus = require('primus');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var expressSession = require('express-session');
+var cookieSession = require('cookie-session');
+var bodyParser = require('body-parser');
 var primusExpressSession = require('../index.js');
 
 var app = express();
 var secret = 'your secret here';
-var store = new express.session.MemoryStore();
+var store = new expressSession.MemoryStore();
 
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(express.methodOverride());
-app.use(express.cookieParser(secret));
-app.use(express.session({
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+var cookies = cookieParser(secret);
+app.use(cookies);
+var session = expressSession({
   store: store
-}));
-//app.use(express.cookieSession());
+});
+// app.use(session);
+// var session = cookieSession({
+//   keys: ['key1', 'key2']
+// });
+app.use(session);
 
 // dummy session
 app.use(function(req, res, next) {
@@ -34,37 +42,28 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
-
-// development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-}
 
 app.get('/', function(req, res) {
   res.render('index', {
     title: 'Express'
-  })
+  });
 });
 
 /**
- * start Primus 
+ * start Primus
  */
-    
+
 var server = http.createServer(app);
 
 // init primus
 var primus = new Primus(server, {
-  transformer: 'websockets',
-  session: {
-    store: store,
-    secret: secret
-  }
+  transformer: 'websockets'
 });
 
-// use primus-express-session plugin
-primus.use('session', primusExpressSession);
+// use cookie and cookie-session middleware
+primus.before('cookies', cookies);
+primus.before('session', session);
 
 // generate client library
 //primus.save(__dirname +'/public/javascripts/primus.js', function save(err) {
@@ -74,12 +73,9 @@ primus.use('session', primusExpressSession);
 
 // listen on incoming connection
 primus.on('connection', function(spark) {
-  
-  spark.getSession(function(err, session) {    
-    if (err) console.log(err);
-    console.log(session.username);
-  });
-  
+  console.log('on::connection');
+  var req = spark.request;
+  console.log(req.session.username);
 });
 
 // start the server
