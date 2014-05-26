@@ -1,10 +1,10 @@
 # primus-express-session
 
-[![Build Status](https://travis-ci.org/zeMirco/primus-express-session.png?branch=master)](https://travis-ci.org/zeMirco/primus-express-session) [![NPM version](https://badge.fury.io/js/primus-express-session.png)](http://badge.fury.io/js/primus-express-session)
+[![Build Status](https://travis-ci.org/zemirco/primus-express-session.png?branch=master)](https://travis-ci.org/zemirco/primus-express-session) [![NPM version](https://badge.fury.io/js/primus-express-session.png)](http://badge.fury.io/js/primus-express-session)
 
 [![NPM](https://nodei.co/npm/primus-express-session.png)](https://nodei.co/npm/primus-express-session/)
 
-Share a user session between Express and Primus. Take a look at the [example](https://github.com/zeMirco/primus-express-session/blob/master/example/app.js).
+Share a user session between Express and Primus. Take a look at the [example](https://github.com/zemirco/primus-express-session/blob/master/example/app.js).
 
 ## Installation
 
@@ -59,13 +59,13 @@ primus.use('session', primusExpressSession);
 
 // listen on incoming connection
 primus.on('connection', function(spark) {
-  
+
   // spark object now has a getSession() method
-  spark.getSession(function(err, session) {    
+  spark.getSession(function(err, session) {
     if (err) console.log(err);
     console.log(session.username);  // prints 'john'
   });
-  
+
 });
 
 // start the server
